@@ -1,25 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import { useKakaoLoader } from "react-kakao-maps-sdk";
+import KakaoMapPage from './pages/Kakaomap';
 
 function App() {
+  const [loading, error] = useKakaoLoader({
+    appkey: process.env.REACT_APP_KAKAOMAP_KEY,
+  });
+
+  console.log(loading, error)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <KakaoMapPage />
+    </>
+  )
 }
 
 export default App;
