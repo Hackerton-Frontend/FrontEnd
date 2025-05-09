@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import "./Main.css"; // 알림 모달 스타일링을 위한 CSS 파일
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { FiRefreshCw } from "react-icons/fi"; // react-icons 라이브러리 사용
+
+export default function Main() {
+  const [data, setData] = useState(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    const routeCoords = location.state?.route;
+    setData(routeCoords);
+    console.log(routeCoords, "✅ routeCoords received");
+  }, [location.state]);
+  console.log(data, "✅ data received");
+
+
 
 export default function Main() {
   const handleRefresh = () => {
@@ -19,6 +35,32 @@ export default function Main() {
         </MapMarker>
       </Map>
 
+      {data && (
+        <div
+          style={{
+            position: "absolute",
+            top: "20px",
+            left: "40vw",
+            background: "white",
+            border: "1px solid gray",
+            borderRadius: "5px",
+            padding: "10px",
+            zIndex: 9999,
+          }}
+        >
+          {(() => {
+            const totalSeconds = Math.floor(data.eta.duration);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return (
+              <>
+                신고가 접수되었습니다. <br />
+                경찰차 도착까지 {minutes}분 {seconds}초
+              </>
+            );
+          })()}
+        </div>
+      )}
       {/* 새로고침 아이콘 */}
       <button
         onClick={handleRefresh}
@@ -43,4 +85,5 @@ export default function Main() {
       </button>
     </div>
   );
+
 }
