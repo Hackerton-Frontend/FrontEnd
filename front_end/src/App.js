@@ -5,6 +5,7 @@ import DisplayPage from './component/DisplayPage';
 import Header from './component/Header';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useKakaoLoader } from "react-kakao-maps-sdk";
+import SosReportPage from "./component/SosReportPage";
 
 function App() {
   const [loading, error] = useKakaoLoader({
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/displaypage" element={<DisplayPage />} />
+          <Route path="/sosreport" element={<SosReportPage />} />
         </Routes>
       </div>
     </Router>
