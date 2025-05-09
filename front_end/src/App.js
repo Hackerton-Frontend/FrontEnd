@@ -1,5 +1,6 @@
 // App.js
 import "./App.css";
+import Header from "./component/Header";
 import Main from "./component/Main"; // 경로 주의!
 import { useKakaoLoader } from "react-kakao-maps-sdk";
 
@@ -13,7 +14,7 @@ function App() {
 
   return (
     <div className="App">
-
+      <Header />
       <Main />
 
     </div>

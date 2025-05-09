@@ -7,7 +7,7 @@ export default function Main() {
         <>
             <Map
                 center={{ lat: 36.361803, lng: 127.356542 }}
-                style={{ width: '300px', height: '600px' }}
+                style={{ width: '100vh', height: '100vh', marginLeft:"-50%" }}
                 level={3}>
 
                 <MapMarker position={{ lat: 36.361803, lng: 127.356542 }}>
