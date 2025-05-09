@@ -1,19 +1,19 @@
-// App.js
-import "./App.css";
-import Main from "./component/Main"; // 경로 주의!
-import { useKakaoLoader } from "react-kakao-maps-sdk";
-import KakaoMapPage from './pages/Kakaomap';
+import React from 'react';
+import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Main from './component/Main';
+import DisplayPage from './component/DisplayPage';
 
 function App() {
-  const [loading, error] = useKakaoLoader({
-    appkey: process.env.REACT_APP_KAKAOMAP_KEY,
-  });
-
-  console.log(loading, error)
   return (
-    <>
-      <KakaoMapPage />   
-    </>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/displaypage" element={<DisplayPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
