@@ -10,9 +10,9 @@ function App() {
   console.log(loading, error)
   return (
     <>
-      <KakaoMapPage />
+      <KakaoMapPage />   
     </>
-  )
+  );
 }
 
 export default App;
