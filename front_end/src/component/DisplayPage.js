@@ -6,6 +6,15 @@ function CCTVMap() {
   const [data, setData] = useState(null);
   const location = useLocation();
 
+  const [selectedRouteType, setSelectedRouteType] = useState("fast");
+  const selectedRoute = data?.[selectedRouteType + "Route"];
+
+  const fastCount = data?.fastRoute?.cctvInfo?.count ?? 0;
+  const fastDistance = data?.fastRoute?.distance ?? 0;
+  
+  const safeCount = data?.safeRoute?.cctvInfo?.count ?? 0;
+  const safeDistance = data?.safeRoute?.distance ?? 0;
+  
   useEffect(() => {
     const routeCoords = location.state?.route;
     setData(routeCoords);
@@ -59,6 +68,24 @@ function CCTVMap() {
           />
         )}
       </Map>
+
+    {
+        
+
+        <div style={{ marginBottom: "10px", display: "flex", gap: "10px" }}>
+        <button onClick={() => setSelectedRouteType("fast")}>
+          🚀 빠른 경로<br />
+          CCTV {fastCount}개 / 거리 {(fastDistance / 1000).toFixed(2)}km
+        </button>
+      
+        <button onClick={() => setSelectedRouteType("safe")}>
+          🛡️ 안전한 경로<br />
+          CCTV {safeCount}개 / 거리 {(safeDistance / 1000).toFixed(2)}km
+        </button>
+      </div>
+    }
+      
+
     </>
   );
 }
