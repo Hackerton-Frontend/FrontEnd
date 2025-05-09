@@ -6,12 +6,11 @@ function CCTVMap() {
   const [data, setData] = useState(null);
   const location = useLocation();
 
-  const [selectedRouteType, setSelectedRouteType] = useState("fast");
-  const selectedRoute = data?.[selectedRouteType + "Route"];
+  const [selectedRouteType, setSelectedRouteType] = useState(null);
 
   const fastCount = data?.fastRoute?.cctvInfo?.count ?? 0;
   const fastDistance = data?.fastRoute?.distance ?? 0;
-  
+
   const safeCount = data?.safeRoute?.cctvInfo?.count ?? 0;
   const safeDistance = data?.safeRoute?.distance ?? 0;
   
@@ -69,65 +68,63 @@ function CCTVMap() {
         )}
       </Map>
 
-    {
-        
-        <div
-        style={{
-          position: "absolute",      // ✅ 지도 내부 하단에 고정
-          bottom: "140px",
-          left: 0,
-          right: 0,
-          zIndex: 10,
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "10px",
-          padding: "10px",
-          boxSizing: "border-box",
-          backgroundColor: "rgba(255, 255, 255, 0.9)", // ✅ 배경 반투명
-          borderTop: "1px solid #ddd",
-        }}
-      >
-        <button
-          onClick={() => setSelectedRouteType("fast")}
-          style={{
-            width: "160px",
-            whiteSpace: "normal",
-            textAlign: "center",
-            padding: "10px",
-            borderRadius: "8px",
-            border: "1px solid #ccc",
-            backgroundColor: selectedRouteType === "fast" ? "#e6f0ff" : "#fff",
-            fontWeight: selectedRouteType === "fast" ? "bold" : "normal",
-            lineHeight: "1.4",
-          }}
-        >
-          🚀 빠른 경로<br />
-          CCTV {fastCount}개 / {(fastDistance / 1000).toFixed(2)}km
-        </button>
-      
-        <button
-          onClick={() => setSelectedRouteType("safe")}
-          style={{
-            width: "160px",
-            whiteSpace: "normal",
-            textAlign: "center",
-            padding: "10px",
-            borderRadius: "8px",
-            border: "1px solid #ccc",
-            backgroundColor: selectedRouteType === "safe" ? "#e6ffe6" : "#fff",
-            fontWeight: selectedRouteType === "safe" ? "bold" : "normal",
-            lineHeight: "1.4",
-          }}
-        >
-          🛡️ 안전한 경로<br />
-          CCTV {safeCount}개 / {(safeDistance / 1000).toFixed(2)}km
-        </button>
-      </div>
-      
-   
 
-    }
+        
+    {!selectedRouteType && (
+        <div
+            style={{
+            position: "absolute",      // ✅ 지도 내부 하단에 고정
+            bottom: "40px",
+            left: 0,
+            right: 0,
+            zIndex: 10,
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "10px",
+            padding: "10px",
+            boxSizing: "border-box",
+            backgroundColor: "rgba(255, 255, 255, 0.9)", // ✅ 배경 반투명
+            borderTop: "1px solid #ddd",
+            }}
+        >
+            <button
+            onClick={() => setSelectedRouteType("fast")}
+            style={{
+                width: "160px",
+                whiteSpace: "normal",
+                textAlign: "center",
+                padding: "10px",
+                borderRadius: "8px",
+                border: "1px solid #ccc",
+                backgroundColor: selectedRouteType === "fast" ? "#e6f0ff" : "#fff",
+                fontWeight: selectedRouteType === "fast" ? "bold" : "normal",
+                lineHeight: "1.4",
+            }}
+            >
+            🚀 빠른 경로<br />
+            CCTV {fastCount}개 / {(fastDistance / 1000).toFixed(2)}km
+            </button>
+        
+            <button
+            onClick={() => setSelectedRouteType("safe")}
+            style={{
+                width: "160px",
+                whiteSpace: "normal",
+                textAlign: "center",
+                padding: "10px",
+                borderRadius: "8px",
+                border: "1px solid #ccc",
+                backgroundColor: selectedRouteType === "safe" ? "#e6ffe6" : "#fff",
+                fontWeight: selectedRouteType === "safe" ? "bold" : "normal",
+                lineHeight: "1.4",
+            }}
+            >
+            🛡️ 안전한 경로<br />
+            CCTV {safeCount}개 / {(safeDistance / 1000).toFixed(2)}km
+            </button>
+        </div>
+    )}
       
 
     </>
