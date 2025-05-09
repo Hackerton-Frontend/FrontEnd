@@ -49,12 +49,12 @@ function CCTVMap() {
         {data?.fastRoute?.path && (
         <Polyline
             path={data.fastRoute.path.map(([lng, lat]) => ({ lat, lng }))}
-            strokeWeight={8}
+            strokeWeight={4}
             strokeColor={
             selectedRouteType === null
-                ? "#0000FF" // 초기 상태는 파랑 
+                ? "#FF1493" // 초기 상태는 파랑 
                 : selectedRouteType === "fast"
-                ? "#0000FF"
+                ? "#FF1493"
                 : "#000000"
             }
             strokeOpacity={0.8}
@@ -66,7 +66,7 @@ function CCTVMap() {
         {data?.safeRoute?.path && (
         <Polyline
             path={data.safeRoute.path.map(([lng, lat]) => ({ lat, lng }))}
-            strokeWeight={8}
+            strokeWeight={4}
             strokeColor={
             selectedRouteType === null
                 ? "#ffd400"
@@ -80,12 +80,10 @@ function CCTVMap() {
         )}
 
       </Map>
-
-      {!selectedRouteType && (
         <div
           style={{
             position: "absolute",
-            bottom: "80px",
+            bottom: "4vh",
             left: 0,
             right: 0,
             zIndex: 10,
@@ -108,7 +106,7 @@ function CCTVMap() {
               padding: "10px",
               borderRadius: "8px",
               border: "1px solid #ccc",
-              backgroundColor: "#0000FF",
+              backgroundColor: "#FFB6C1",
               lineHeight: "1.4",
             }}
           >
@@ -133,7 +131,6 @@ function CCTVMap() {
             CCTV {safeCount}개 / {(safeDistance / 1000).toFixed(2)}km
           </button>
         </div>
-      )}
     </>
   );
 }
