@@ -71,7 +71,7 @@ function SearchModal({ onClose }) {
       const routeCoords = response.data;
 
       onClose();
-      navigate('/displayPage', { state: { route: routeCoords } });
+      navigate('/displaypage', { state: { route: routeCoords } });
     } catch (err) {
       console.error('경로 요청 실패:', err);
       alert('경로 요청에 실패했습니다.');
@@ -149,7 +149,7 @@ const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 96vw;
+  width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.4);
   display: flex;
