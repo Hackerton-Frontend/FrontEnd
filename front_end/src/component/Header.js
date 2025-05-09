@@ -1,19 +1,31 @@
 // component/Header.js
-import React from "react";
+import React,{useState} from "react";
 import logo from "../data/logo.png"; // 로고 이미지 경로
+import SerachModal from "../modal/SerachModal";
+import SosModal from "../modal/SosModal";
 
 export default function Header() {
+    const [showSos, setShowSos] = useState(false);
+    const [showSearch, setShowSearch] = useState(false);
+
     const handleSOSClick = () => {
-        alert("🚨 SOS 요청이 전송되었습니다!");
+        setShowSos(true);
     };
 
     const handleSearchClick = () => {
-        alert("🔍 검색 기능은 아직 구현 중입니다.");
+        setShowSearch(true);
     };
 
     return (
         <div>
-            <div style={{ backgroundColor:"orange",fontSize:"20px", fontWeight:"bold",textShadow:"1px 1px 1px black" }}>안심 귀가 길 서비스</div>
+            <div style={{
+                backgroundColor: "orange",
+                fontSize: "20px",
+                fontWeight: "bold",
+                textShadow: "1px 1px 1px black"
+            }}>
+                안심 귀가 길 서비스
+            </div>
             <div style={{
                 display: "flex",
                 alignItems: "center",
@@ -32,6 +44,9 @@ export default function Header() {
                     🔍 Search
                 </button>
             </div>
+            {/* 모달 렌더링 */}
+            {showSos && <SosModal onClose={() => setShowSos(false)} />}
+            {showSearch && <SerachModal onClose={() => setShowSearch(false)} />}
         </div>
     );
 }
