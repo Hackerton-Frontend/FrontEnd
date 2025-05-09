@@ -71,18 +71,62 @@ function CCTVMap() {
 
     {
         
-
-        <div style={{ marginBottom: "10px", display: "flex", gap: "10px" }}>
-        <button onClick={() => setSelectedRouteType("fast")}>
+        <div
+        style={{
+          position: "absolute",      // ✅ 지도 내부 하단에 고정
+          bottom: "140px",
+          left: 0,
+          right: 0,
+          zIndex: 10,
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "10px",
+          padding: "10px",
+          boxSizing: "border-box",
+          backgroundColor: "rgba(255, 255, 255, 0.9)", // ✅ 배경 반투명
+          borderTop: "1px solid #ddd",
+        }}
+      >
+        <button
+          onClick={() => setSelectedRouteType("fast")}
+          style={{
+            width: "160px",
+            whiteSpace: "normal",
+            textAlign: "center",
+            padding: "10px",
+            borderRadius: "8px",
+            border: "1px solid #ccc",
+            backgroundColor: selectedRouteType === "fast" ? "#e6f0ff" : "#fff",
+            fontWeight: selectedRouteType === "fast" ? "bold" : "normal",
+            lineHeight: "1.4",
+          }}
+        >
           🚀 빠른 경로<br />
-          CCTV {fastCount}개 / 거리 {(fastDistance / 1000).toFixed(2)}km
+          CCTV {fastCount}개 / {(fastDistance / 1000).toFixed(2)}km
         </button>
       
-        <button onClick={() => setSelectedRouteType("safe")}>
+        <button
+          onClick={() => setSelectedRouteType("safe")}
+          style={{
+            width: "160px",
+            whiteSpace: "normal",
+            textAlign: "center",
+            padding: "10px",
+            borderRadius: "8px",
+            border: "1px solid #ccc",
+            backgroundColor: selectedRouteType === "safe" ? "#e6ffe6" : "#fff",
+            fontWeight: selectedRouteType === "safe" ? "bold" : "normal",
+            lineHeight: "1.4",
+          }}
+        >
           🛡️ 안전한 경로<br />
-          CCTV {safeCount}개 / 거리 {(safeDistance / 1000).toFixed(2)}km
+          CCTV {safeCount}개 / {(safeDistance / 1000).toFixed(2)}km
         </button>
       </div>
+      
+   
+
     }
       
 
