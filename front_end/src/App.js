@@ -1,8 +1,11 @@
-import React from 'react';
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Main from './component/Main';
+// App.js
+import "./App.css";
+import Header from "./component/Header";
+import Main from "./component/Main"; // 경로 주의!
+import { useKakaoLoader } from "react-kakao-maps-sdk";
 import DisplayPage from './component/DisplayPage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react';
 
 function App() {
   return (
