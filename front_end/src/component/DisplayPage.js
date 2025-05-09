@@ -34,15 +34,15 @@ function CCTVMap() {
       <Map
         center={{ lat: 36.361803, lng: 127.356542 }}
         style={{ width: "390px", height: "844px" }}
-        level={15}
+        level={6}
       >
 
         {/* CCTV 위치 표시 */}
         {Array.isArray(cctvs) && cctvs.slice(0, 20).map((cctv, index) => (
             <MapMarker
-            key={`${cctv.address}-${index}`}
-            position={{ lat: cctv.lat, lng: cctv.lng }}
-            clickable={true}
+                key={`${cctv.address}-${index}`}
+                position={{ lat: cctv.lat, lng: cctv.lng }}
+                clickable={true}
             >
             <div style={{ padding: "5px", color: "#000" }}>{cctv.address}</div>
             </MapMarker>
@@ -50,19 +50,16 @@ function CCTVMap() {
         {/* CCTV 위치를 선으로 연결 */}
         {Array.isArray(cctvs) && (
             <Polyline
-            path={cctvs.slice(0, 20).map(cctv => ({
-                lat: cctv.lat,
-                lng: cctv.lng
-            }))}
-            strokeWeight={5}
-            strokeColor={"#FF0000"}
-            strokeOpacity={0.8}
-            strokeStyle={"solid"}
+                path={cctvs.slice(0, 20).map(cctv => ({
+                    lat: cctv.lat,
+                    lng: cctv.lng
+                }))}
+                strokeWeight={10}
+                strokeColor={"#0067A3"}
+                strokeOpacity={0.8}
+                strokeStyle={"solid"}
             />
         )}
-
-
-
       </Map>
     {
 
