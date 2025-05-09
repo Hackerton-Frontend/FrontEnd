@@ -1,4 +1,6 @@
-import './App.css';
+// App.js
+import "./App.css";
+import Main from "./component/Main"; // 경로 주의!
 import { useKakaoLoader } from "react-kakao-maps-sdk";
 import KakaoMapPage from './pages/Kakaomap';
 
