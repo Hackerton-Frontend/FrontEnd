@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
 function SearchModal({ onClose }) {
+  const [map, setMap] = useState(null)
   const navigate = useNavigate();
   const [kakaoReady, setKakaoReady] = useState(false);
   const [startPos] = useState({ lat: 36.3623, lng: 127.3563 });
@@ -94,7 +95,13 @@ function SearchModal({ onClose }) {
           {destOptions.map((item, idx) => (
             <ResultItem
               key={idx}
-              onClick={() => setSelectedDest(item)}
+              onClick={() => {
+                setSelectedDest(item);
+                if (map) {
+                  const moveLatLng = new window.kakao.maps.LatLng(item.y, item.x);
+                  map.panTo(moveLatLng);  // ✅ 부드럽게 이동
+                }
+              }}
               selected={selectedDest?.id === item.id}
             >
               {item.place_name} ({item.address_name})
@@ -103,9 +110,14 @@ function SearchModal({ onClose }) {
         </ResultList>
 
         <Map
-          center={startPos}
-          level={5}
+          center={
+            selectedDest
+              ? { lat: parseFloat(selectedDest.y), lng: parseFloat(selectedDest.x) }
+              : startPos
+          }
+          level={4}
           style={{ width: '100%', height: '300px', marginBottom: '16px' }}
+          onCreate={map => setMap(map)}
         >
           <MapMarker position={startPos}>
             <div>출발지</div>
