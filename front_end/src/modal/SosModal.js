@@ -42,7 +42,6 @@ const SosModal = () => {
         };
 
         try {
-            // POST 요청으로 데이터 전송
             const postResponse = await axios.post('https://backend-0mut.onrender.com/api/sos', requestData);
             console.log('POST Response:', postResponse.data); // POST 성공 시 응답 데이터 출력
 

@@ -53,7 +53,7 @@
 .button-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* 2열로 배치 */
+
     gap: 10px;
     /* 버튼 간격 */
     padding: 20px;
