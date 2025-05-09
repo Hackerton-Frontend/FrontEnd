@@ -24,8 +24,8 @@ export default function Main() {
         onClick={handleRefresh}
         style={{
           position: "absolute",
-          bottom: "20px",
-          right: "20px",
+          bottom: "17vh",
+          right: "8vw",
           backgroundColor: "white",
           border: "none",
           borderRadius: "50%",

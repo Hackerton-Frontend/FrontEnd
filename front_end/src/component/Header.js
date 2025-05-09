@@ -23,7 +23,7 @@ export default function Header() {
 
   const handleSOSClick = () => setIsSosModalOpen(true);
   const handleSearchClick = () => setIsSearchModalOpen(true);
-
+  
   const getButtonStyle = (isHovered) => ({
     width: "90px",
     height: "40px",
