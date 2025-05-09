@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { FiRefreshCw } from "react-icons/fi"; // react-icons 라이브러리 사용
+import "./Main.css"; // 알림 모달 스타일링을 위한 CSS 파일
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { FiRefreshCw } from "react-icons/fi"; // react-icons 라이브러리 사용
+import { useState } from "react";
 
 export default function Main() {
     const [data, setData] = useState(null);
@@ -58,6 +60,32 @@ export default function Main() {
 
       </Map>
 
+      {data && (
+        <div
+          style={{
+            position: "absolute",
+            top: "20px",
+            left: "40vw",
+            background: "white",
+            border: "1px solid gray",
+            borderRadius: "5px",
+            padding: "10px",
+            zIndex: 9999,
+          }}
+        >
+          {(() => {
+            const totalSeconds = Math.floor(data.eta.duration);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return (
+              <>
+                신고가 접수되었습니다. <br />
+                경찰차 도착까지 {minutes}분 {seconds}초
+              </>
+            );
+          })()}
+        </div>
+      )}
       {/* 새로고침 아이콘 */}
       <button
         onClick={handleRefresh}
@@ -83,4 +111,5 @@ export default function Main() {
 
     </div>
   );
+
 }
