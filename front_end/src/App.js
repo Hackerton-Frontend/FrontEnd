@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import "./App.css";
+import Main from "./component/Main"; // 경로 주의!
+import { useKakaoLoader } from "react-kakao-maps-sdk";
 
 function App() {
+  const [loading, error] = useKakaoLoader({
+    appkey: process.env.REACT_APP_KAKAOMAP_KEY,
+  });
+
+  if (loading) return <div>지도를 불러오는 중입니다...</div>;
+  if (error) return <div>지도 로딩 에러: {String(error)}</div>;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <Main />
+
     </div>
   );
 }
