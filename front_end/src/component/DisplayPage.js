@@ -25,7 +25,7 @@ function CCTVMap() {
       <Map
         center={{ lat: 36.361803, lng: 127.356542 }}
         style={{ width: "390px", height: "844px" }}
-        level={6}
+        level={4}
       >
         {/* CCTV 위치 마커 - 빠른 경로 */}
         {data?.fastRoute?.cctvInfo?.cctvLoc?.map((cctv, index) => (

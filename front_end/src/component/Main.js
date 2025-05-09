@@ -103,7 +103,7 @@ export default function Main() {
           alignItems: "center",
           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
           cursor: "pointer",
-          zIndex: 9999, // 버튼 zIndex 높게 설정
+          zIndex: 999, // 버튼 zIndex 높게 설정
         }}
       >
         <FiRefreshCw size={24} color="#000" />
