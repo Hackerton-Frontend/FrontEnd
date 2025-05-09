@@ -6,15 +6,14 @@ import Harassment from "../data/Harassment.png";
 import Knife from "../data/Knife.png";
 import Stalking from "../data/Stalking.png";
 
-const SosModal = () => {
-    const [modalOpen, setModalOpen] = useState(false);
+const SosModal = ({ onClose }) => {
     const modalBackground = useRef();
 
     // Close modal on ESC key press
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === 'Escape' && modalOpen) {
-                setModalOpen(false);
+            if (e.key === 'Escape') {
+                onClose();
             }
         };
 
@@ -22,11 +21,11 @@ const SosModal = () => {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [modalOpen]);
+    }, []);
 
     const handleBackgroundClick = (e) => {
         if (e.target === modalBackground.current) {
-            setModalOpen(false);
+            onClose();
         }
     };
 
@@ -62,8 +61,7 @@ const SosModal = () => {
                 신고자 주민등록번호: ${latestData.rrn}`
             );
 
-            // 모달 닫기
-            setModalOpen(false);
+            onClose();
         } catch (error) {
             console.error('Error:', error); // 에러 발생 시 출력
             alert('데이터 전송 또는 수신 중 오류가 발생했습니다.');
@@ -72,12 +70,7 @@ const SosModal = () => {
 
     return (
         <>
-            <div className="btn-wrapper">
-                <button className="modal-open-btn" onClick={() => setModalOpen(true)}>
-                    모달 열기
-                </button>
-            </div>
-            {modalOpen && (
+            {(
                 <div
                     className="modal-overlay"
                     ref={modalBackground}
@@ -91,7 +84,7 @@ const SosModal = () => {
                         </div>
                         <button
                             className="modal-close-btn"
-                            onClick={() => setModalOpen(false)}
+                            onClick={() => onClose()}
                         >
                             X
                         </button>

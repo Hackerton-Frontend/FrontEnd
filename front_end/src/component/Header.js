@@ -7,9 +7,10 @@ import SearchModal from '../modal/SearchModal';
 export default function Header() {
     const [showSos, setShowSos] = useState(false);
     const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+    const [isSosdalOpen, setIsSosModalOpen] = useState(false);
 
     const handleSOSClick = () => {
-        setShowSos(true);
+        setIsSosModalOpen(true);
     };
 
     const handleSearchClick = () => {
@@ -56,7 +57,7 @@ export default function Header() {
                 </button>
             </div>
             {/* 모달 렌더링 */}
-            {showSos && <SosModal onClose={() => setShowSos(false)} />}
+            {isSosdalOpen && <SosModal onClose={() => setIsSosModalOpen(false)} />}
             {isSearchModalOpen && <SearchModal onClose={() => setIsSearchModalOpen(false)} />}
         </div>
     );
