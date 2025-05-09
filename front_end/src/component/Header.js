@@ -34,7 +34,7 @@ export default function Header() {
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"-3vw", 
-                width:"100vw"
+                width:"110vw"
             }}>
                 안심 귀가 길 서비스
             </div>
