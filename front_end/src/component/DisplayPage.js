@@ -13,7 +13,7 @@ function CCTVMap() {
 
   const safeCount = data?.safeRoute?.cctvInfo?.count ?? 0;
   const safeDistance = data?.safeRoute?.distance ?? 0;
-  
+
   useEffect(() => {
     const routeCoords = location.state?.route;
     setData(routeCoords);
@@ -45,36 +45,47 @@ function CCTVMap() {
           />
         ))}
 
-        {/* 경로 선 - 빠른 경로 */}
+        {/* Polyline - 빠른 경로 */}
         {data?.fastRoute?.path && (
-          <Polyline
+        <Polyline
             path={data.fastRoute.path.map(([lng, lat]) => ({ lat, lng }))}
-            strokeWeight={3}
-            strokeColor="#0067A3"
+            strokeWeight={8}
+            strokeColor={
+            selectedRouteType === null
+                ? "#0000FF" // 초기 상태는 파랑 
+                : selectedRouteType === "fast"
+                ? "#0000FF"
+                : "#000000"
+            }
             strokeOpacity={0.8}
             strokeStyle="solid"
-          />
+        />
         )}
 
-        {/* 경로 선 - 안전 경로 */}
+        {/* Polyline - 안전 경로 */}
         {data?.safeRoute?.path && (
-          <Polyline
+        <Polyline
             path={data.safeRoute.path.map(([lng, lat]) => ({ lat, lng }))}
-            strokeWeight={3}
-            strokeColor="#000000"
+            strokeWeight={8}
+            strokeColor={
+            selectedRouteType === null
+                ? "#ffd400"
+                : selectedRouteType === "safe"
+                ? "#ffd400"
+                : "#000000"
+            }
             strokeOpacity={0.8}
             strokeStyle="solid"
-          />
+        />
         )}
+
       </Map>
 
-
-        
-    {!selectedRouteType && (
+      {!selectedRouteType && (
         <div
-            style={{
-            position: "absolute",      // ✅ 지도 내부 하단에 고정
-            bottom: "40px",
+          style={{
+            position: "absolute",
+            bottom: "80px",
             left: 0,
             right: 0,
             zIndex: 10,
@@ -84,49 +95,45 @@ function CCTVMap() {
             gap: "10px",
             padding: "10px",
             boxSizing: "border-box",
-            backgroundColor: "rgba(255, 255, 255, 0.9)", // ✅ 배경 반투명
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
             borderTop: "1px solid #ddd",
-            }}
+          }}
         >
-            <button
+          <button
             onClick={() => setSelectedRouteType("fast")}
             style={{
-                width: "160px",
-                whiteSpace: "normal",
-                textAlign: "center",
-                padding: "10px",
-                borderRadius: "8px",
-                border: "1px solid #ccc",
-                backgroundColor: selectedRouteType === "fast" ? "#e6f0ff" : "#fff",
-                fontWeight: selectedRouteType === "fast" ? "bold" : "normal",
-                lineHeight: "1.4",
+              width: "160px",
+              whiteSpace: "normal",
+              textAlign: "center",
+              padding: "10px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              backgroundColor: "#0000FF",
+              lineHeight: "1.4",
             }}
-            >
+          >
             🚀 빠른 경로<br />
             CCTV {fastCount}개 / {(fastDistance / 1000).toFixed(2)}km
-            </button>
-        
-            <button
+          </button>
+
+          <button
             onClick={() => setSelectedRouteType("safe")}
             style={{
-                width: "160px",
-                whiteSpace: "normal",
-                textAlign: "center",
-                padding: "10px",
-                borderRadius: "8px",
-                border: "1px solid #ccc",
-                backgroundColor: selectedRouteType === "safe" ? "#e6ffe6" : "#fff",
-                fontWeight: selectedRouteType === "safe" ? "bold" : "normal",
-                lineHeight: "1.4",
+              width: "160px",
+              whiteSpace: "normal",
+              textAlign: "center",
+              padding: "10px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              backgroundColor: "#ffd400",
+              lineHeight: "1.4",
             }}
-            >
+          >
             🛡️ 안전한 경로<br />
             CCTV {safeCount}개 / {(safeDistance / 1000).toFixed(2)}km
-            </button>
+          </button>
         </div>
-    )}
-      
-
+      )}
     </>
   );
 }
