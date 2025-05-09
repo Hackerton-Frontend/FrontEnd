@@ -1,7 +1,7 @@
 // component/Header.js
 import React,{useState} from "react";
 import logo from "../data/logo.png"; // 로고 이미지 경로
-import SerachModal from "../modal/SerachModal";
+import SerachModal from "../modal/SearchModal";
 import SosModal from "../modal/SosModal";
 
 export default function Header() {
