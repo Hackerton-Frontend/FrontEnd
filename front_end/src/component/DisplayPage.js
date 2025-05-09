@@ -1,26 +1,16 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useKakaoLoader, Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
+import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
 import { useLocation } from "react-router-dom";
 
 function CCTVMap() {
-  const [loading, error] = useKakaoLoader({
-    appkey: process.env.REACT_APP_KAKAOMAP_KEY,
-  });
-  const [data,setData] = useState()
-
+  const [data, setData] = useState(null);
   const location = useLocation();
+
   useEffect(() => {
-    const routeCoords = location.state?.routeCoords;
+    const routeCoords = location.state?.route;
     setData(routeCoords);
-    console.log(data,"test");
-  },[data])
-
-  const [cctvs, setCctvs] = useState();
-
-
-  if (loading) return <div>지도를 불러오는 중입니다...</div>;
-  if (error) return <div>지도를 불러오는 중 오류가 발생했습니다.</div>;
+    console.log(routeCoords, "✅ routeCoords received");
+  }, [location.state]);
 
   return (
     <>
@@ -29,60 +19,46 @@ function CCTVMap() {
         style={{ width: "390px", height: "844px" }}
         level={6}
       >
-
-        {/* CCTV 위치 표시 */}
-        {data && data.fastRoute.cctvInfo.cctvLoc.map((cctv, index) => (
-            <MapMarker
-                key={`${cctv.address}-${index}`}
-                position={{ lat: cctv.lat, lng: cctv.lng }}
-                clickable={true}
-            >
-            </MapMarker>
+        {/* CCTV 위치 마커 - 빠른 경로 */}
+        {data?.fastRoute?.cctvInfo?.cctvLoc?.map((cctv, index) => (
+          <MapMarker
+            key={`fast-${cctv.address}-${index}`}
+            position={{ lat: cctv.lat, lng: cctv.lng }}
+            clickable={true}
+          />
         ))}
 
-        {/* CCTV 위치 표시 */}
-        {data && data.safeRoute.cctvInfo.cctvLoc.map((cctv, index) => (
-            <MapMarker
-                key={`${cctv.address}-${index}`}
-                position={{ lat: cctv.lat, lng: cctv.lng }}
-                clickable={true}
-            >
-            </MapMarker>
+        {/* CCTV 위치 마커 - 안전 경로 */}
+        {data?.safeRoute?.cctvInfo?.cctvLoc?.map((cctv, index) => (
+          <MapMarker
+            key={`safe-${cctv.address}-${index}`}
+            position={{ lat: cctv.lat, lng: cctv.lng }}
+            clickable={true}
+          />
         ))}
 
-        {/* CCTV 위치를 선으로 연결 */}
-        {data && (
-            <Polyline
-                path={data.fastRoute.path.map(data => ({
-                    lat: data[1],
-                    lng: data[0]
-                }))}
-                strokeWeight={3}
-                strokeColor={"#0067A3"}
-                strokeOpacity={0.8}
-                strokeStyle={"solid"}
-            />
+        {/* 경로 선 - 빠른 경로 */}
+        {data?.fastRoute?.path && (
+          <Polyline
+            path={data.fastRoute.path.map(([lng, lat]) => ({ lat, lng }))}
+            strokeWeight={3}
+            strokeColor="#0067A3"
+            strokeOpacity={0.8}
+            strokeStyle="solid"
+          />
         )}
 
-        {/* CCTV 위치를 선으로 연결 */}
-        {data && (
-            <Polyline
-                path={data.safeRoute.path.map(data => ({
-                    lat: data[1],
-                    lng: data[0]
-                }))}
-                strokeWeight={3}
-                strokeColor={"#000000"}
-                strokeOpacity={0.8}
-                strokeStyle={"solid"}
-            />
+        {/* 경로 선 - 안전 경로 */}
+        {data?.safeRoute?.path && (
+          <Polyline
+            path={data.safeRoute.path.map(([lng, lat]) => ({ lat, lng }))}
+            strokeWeight={3}
+            strokeColor="#000000"
+            strokeOpacity={0.8}
+            strokeStyle="solid"
+          />
         )}
-
       </Map>
-    {
-
-    }
-
     </>
   );
 }

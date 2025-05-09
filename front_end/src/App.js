@@ -1,23 +1,27 @@
 // App.js
 import "./App.css";
-import Header from "./component/Header";
-import Main from "./component/Main"; // 경로 주의!
+import Main from "./component/Main";
+import DisplayPage from './component/DisplayPage';
+import Header from './component/Header';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useKakaoLoader } from "react-kakao-maps-sdk";
 
 function App() {
   const [loading, error] = useKakaoLoader({
-    appkey: process.env.REACT_APP_KAKAOMAP_KEY,
+    appkey: 'cfd7264f6f0677bc208104d9cbc45701', // .env에 저장된 키 사용
+    libraries: ["services"],
   });
 
-  if (loading) return <div>지도를 불러오는 중입니다...</div>;
-  if (error) return <div>지도 로딩 에러: {String(error)}</div>;
-
   return (
-    <div className="App">
-      <Header />
-      <Main />
-
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/displaypage" element={<DisplayPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

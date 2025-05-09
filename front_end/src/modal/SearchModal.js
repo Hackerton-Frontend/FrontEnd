@@ -1,16 +1,12 @@
+// ✅ SearchModal.js
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useKakaoLoader, Map, MapMarker } from 'react-kakao-maps-sdk';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
 function SearchModal({ onClose }) {
   const navigate = useNavigate();
-  const [loaded, error] = useKakaoLoader({
-    appkey: 'cfd7264f6f0677bc208104d9cbc45701',
-    libraries: ['services'],
-  });
-
   const [kakaoReady, setKakaoReady] = useState(false);
   const [startPos] = useState({ lat: 36.3623, lng: 127.3563 });
   const [keyword, setKeyword] = useState('');
@@ -72,9 +68,9 @@ function SearchModal({ onClose }) {
       });
 
       const routeCoords = response.data;
-     
-      navigate('/displaypage', {state: { routeCoords }});
 
+      onClose();
+      navigate('/displayPage', { state: { route: routeCoords } });
     } catch (err) {
       console.error('경로 요청 실패:', err);
       alert('경로 요청에 실패했습니다.');
@@ -141,12 +137,13 @@ const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 96vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 `;
 
 const ModalBox = styled.div`
