@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { FiRefreshCw } from "react-icons/fi"; // react-icons 라이브러리 사용
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Main() {
+    const [data, setData] = useState(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    const routeCoords = location.state?.route;
+    setData(routeCoords);
+    console.log(routeCoords, "✅ routeCoords received");
+  }, [location.state]);
+  console.log(data, "✅ data received");
+
   const handleRefresh = () => {
     window.location.reload(); // 페이지 새로고침
   };
@@ -17,6 +29,33 @@ export default function Main() {
         <MapMarker position={{ lat: 36.361803, lng: 127.356542 }}>
           <div style={{ padding: "5px", color: "#000" }}>현재 위치</div>
         </MapMarker>
+          {data && (
+            <div
+            style={{
+                position: "absolute",
+                top: "20px",
+                left: "40vw",
+                background: "white",
+                border: "1px solid gray",
+                borderRadius: "5px",
+                padding: "10px",
+                zIndex: 9999,
+            }}
+            >
+            {(() => {
+                const totalSeconds = Math.floor(data.eta.duration);
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+                return (
+                <>
+                    신고가 접수되었습니다. <br />
+                    경찰차 도착까지 {minutes}분 {seconds}초
+                </>
+                );
+          })()}
+        </div>
+      )}
+
       </Map>
 
       {/* 새로고침 아이콘 */}
@@ -24,7 +63,7 @@ export default function Main() {
         onClick={handleRefresh}
         style={{
           position: "absolute",
-          bottom: "17vh",
+          bottom: "23vh",
           right: "8vw",
           backgroundColor: "white",
           border: "none",
@@ -41,6 +80,7 @@ export default function Main() {
       >
         <FiRefreshCw size={24} color="#000" />
       </button>
+
     </div>
   );
 }

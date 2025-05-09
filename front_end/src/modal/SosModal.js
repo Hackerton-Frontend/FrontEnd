@@ -5,9 +5,13 @@ import Drunk from "../data/Drunk.png";
 import Harassment from "../data/Harassment.png";
 import Knife from "../data/Knife.png";
 import Stalking from "../data/Stalking.png";
+import { useNavigate } from 'react-router-dom';
+import { routeCoords } from '../component/Main'; // Main.js에서 routeCoords를 import
 
-const SosModal = ({ onClose }) => {
+
+const SosModal = ({ onSendData, onClose }) => {
     const modalBackground = useRef();
+    const navigate = useNavigate();
 
     // Close modal on ESC key press
     useEffect(() => {
@@ -51,15 +55,9 @@ const SosModal = ({ onClose }) => {
             // 가장 최근 데이터 가져오기
             const latestData = getResponse.data[getResponse.data.length - 1];
 
-            // Alert로 데이터 표시
-            alert(
-                `ETA: ${latestData.eta.duration}초,
-                거리: ${latestData.eta.distance}m,
-                상황: ${latestData.situation},
-                신고자: ${latestData.name},
-                신고자 전화번호: ${latestData.phone},
-                신고자 주민등록번호: ${latestData.rrn}`
-            );
+
+            // Main 페이지로 데이터 전달
+            navigate('/', { state: { route: latestData } });
 
             onClose();
         } catch (error) {
