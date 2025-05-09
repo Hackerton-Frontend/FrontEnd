@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useKakaoLoader, Map, MapMarker } from "react-kakao-maps-sdk";
+import { useKakaoLoader, Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
 
 function CCTVMap() {
   const [loading, error] = useKakaoLoader({
@@ -36,11 +36,9 @@ function CCTVMap() {
         style={{ width: "390px", height: "844px" }}
         level={15}
       >
-  
 
-        {/* 기존 CCTV 마커들 */}
-        {Array.isArray(cctvs) &&
-        cctvs.slice(0, 20).map((cctv, index) => (
+        {/* CCTV 위치 표시 */}
+        {Array.isArray(cctvs) && cctvs.slice(0, 20).map((cctv, index) => (
             <MapMarker
             key={`${cctv.address}-${index}`}
             position={{ lat: cctv.lat, lng: cctv.lng }}
@@ -49,7 +47,22 @@ function CCTVMap() {
             <div style={{ padding: "5px", color: "#000" }}>{cctv.address}</div>
             </MapMarker>
         ))}
-        
+        {/* CCTV 위치를 선으로 연결 */}
+        {Array.isArray(cctvs) && (
+            <Polyline
+            path={cctvs.slice(0, 20).map(cctv => ({
+                lat: cctv.lat,
+                lng: cctv.lng
+            }))}
+            strokeWeight={5}
+            strokeColor={"#FF0000"}
+            strokeOpacity={0.8}
+            strokeStyle={"solid"}
+            />
+        )}
+
+
+
       </Map>
     {
 
