@@ -1,6 +1,6 @@
 # 🌃 **안심길찾기 Frontend**
 
-> CCTV, 가로등, 위험지역 데이터를 기반으로  
+> CCTV 데이터를 기반으로  
 > **더 안전한 귀가 경로**를 안내하는 웹 서비스의 프론트엔드입니다.
  
 🌐 배포 주소: https://hackerton-frontend.github.io/FrontEnd/ <br />
