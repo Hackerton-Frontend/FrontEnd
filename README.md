@@ -4,7 +4,7 @@
 > **더 안전한 귀가 경로**를 안내하는 웹 서비스의 프론트엔드입니다.
  
 🌐 배포 주소: https://hackerton-frontend.github.io/FrontEnd/ <br />
-(현재 백엔드가 Render로 배포되어있어 서버가 잠들었을경우 깨기전까지 작동이 안될 수 있습니다.)
+(현재 백엔드가 Render로 배포되어있어 서버가 잠들었을경우 깨기전까지 작동이 안될 수 있습니다.)  
 🖥️ 백엔드 레포: https://github.com/Hackerton-Frontend/BackEnd  
 
 내 역할: 프론트 엔드 개발 (50%) 및 팀장
